@@ -1,23 +1,17 @@
-# Compressible Interface Dynamics Solver
+# Compressible Interface Solver
 
-This repository contains MATLAB code for simulating the evolution of a compressible interface in a two-region domain, as presented in our paper:
+This MATLAB code models the evolution of a gas-liquid interface and the associated pressure field during the injection of a compressible gas into a confined porous layer. The interface is bounded by two dynamic contact lines: Xₗ at the lower boundary and Xᵤ at the upper boundary.
 
-**[Paper Title]**  
-*Author1, Author2, Author3*  
-*Journal of Fluid Mechanics*, 2025 (forthcoming)  
-[DOI if available]
+- **Region I (0 < x < Xₗ):** Here, the pressure field `P` is solved for directly based on the interface shape.
+- **Region II (Xₗ < x < Xᵤ):** The equations are rewritten in terms of `B` and `F`, which are evolved in time.
 
----
+When the lower contact line reaches the origin (i.e., `Xₗ = 0`), only Region II remains, and both `B` and `F` are solved across the full domain.
 
-## 📌 Overview
+The discretization uses a second-order accurate method-of-lines (MOL) scheme with central differencing in space. Time integration is handled using MATLAB's ODE solvers (e.g., `ode15s`), making use of a custom Jacobian sparsity pattern for efficiency.
 
-The solver implements a second-order accurate **method-of-lines (MOL)** scheme to simulate the evolution of:
-- **F(x, t)**: Interface height
-- **B(x, t)**: Depth-integrated density, where B = (1 − F)·P
-
-The domain is split into **two regions** depending on the position of the lower contact line. The script handles both **two-region** and **single-region** cases automatically, based on the contact line dynamics.
-
----
+This code was developed to accompany the paper:  
+**"Dynamic injection of a compressible gas into a confined porous layer"**  
+*Peter Castellucci, Radha Boya, Lin Ma, Igor Chernyavsky, Oliver Jensen. (2025)*  
 
 ## 🛠️ Requirements
 
@@ -45,20 +39,6 @@ The domain is split into **two regions** depending on the position of the lower 
     MOL
     ```
 
-This will simulate the system using default parameters and generate outputs including the interface evolution and sample plots.
----
+This will simulate the system using default parameters and save the data to a file called "Data.txt".
 
-## 📣 Citation
-
-If you use this code, please cite the following paper:
-
-> Author1, Author2, Author3. *Title*. Journal of Fluid Mechanics, 2025. [DOI]
-
-BibTeX:
-```bibtex
-@article{author2025jfm,
-  title={Title},
-  author={Author1 and Author2 and Author3},
-  journal={Journal of Fluid Mechanics},
-  year={2025}
-}
+🔧 You can modify key physical parameters (e.g. `M`, `zeta`, `L`) as well as the time dependence of the source `Q(t)` directly in `MOL.m` to explore different dynamics.
