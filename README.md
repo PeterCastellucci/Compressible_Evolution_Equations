@@ -39,13 +39,13 @@ The domain is split into **two regions** depending on the position of the lower 
 
 2. Open MATLAB in this directory.
 
-3. Run the main script:
+3. To simulate the system, run the main script:
+
     ```matlab
-    run_main
+    MOL
     ```
 
-This will simulate the system with default parameters and generate outputs including interface evolution and sample plots.
-
+This will simulate the system using default parameters and generate outputs including the interface evolution and sample plots.
 ---
 
 ## 📣 Citation
